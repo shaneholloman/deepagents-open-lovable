@@ -4,12 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a deepagents-based frontend development platform. It consists of three main parts:
+This is a deepagents-based frontend development platform. It consists of two main parts:
 
 1. **`agent/`** - Python backend: LangGraph-based AI agent for frontend development
 2. **`gui/`** - React/Vite frontend: Custom UI for interacting with the agent
-3. **`deep-agents-ui-main/`** - Next.js reference UI (alternative frontend)
-4. **`deepagents-master/`** - Core deepagents library reference
 
 ## Common Commands
 
@@ -41,17 +39,6 @@ npm run lint     # Run ESLint
 Environment variables (in `gui/.env`):
 - `VITE_API_URL` - LangGraph API URL (default: http://localhost:2024)
 - `VERCEL_API_TOKEN` - Optional, for preview deployments
-
-### Alternative UI (Next.js)
-
-```bash
-# From deep-agents-ui-main/
-yarn install
-yarn dev         # Dev server at http://localhost:3000
-yarn build       # Production build
-yarn lint        # ESLint
-yarn format      # Prettier
-```
 
 ## Architecture
 
@@ -100,5 +87,3 @@ The agent uses `CompositeBackend` with `StateBackend` so all files are stored in
 **Agent**: Python 3.11+, deepagents, LangChain, LangGraph, langchain-anthropic, tavily-python
 
 **GUI**: React 18, TypeScript, Vite, Tailwind CSS, @langchain/langgraph-sdk, react-router-dom, Sandpack
-
-**Alt UI**: Next.js 15, React 19, TypeScript, Tailwind CSS, shadcn/ui, nuqs
