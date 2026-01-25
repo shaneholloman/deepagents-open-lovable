@@ -26,14 +26,12 @@ deepagents-open-lovable/
 │   │   ├── subagents.py     # Designer & image researcher
 │   │   └── skills/          # Skill definitions
 │   └── langgraph.json       # LangGraph configuration
-├── gui/                      # React/Vite frontend
-│   └── src/
-│       ├── components/      # UI components
-│       ├── hooks/           # Custom React hooks
-│       ├── pages/           # Route components
-│       └── api/             # Backend API client
-├── deep-agents-ui-main/     # Alternative Next.js UI
-└── deepagents-master/       # Core library reference
+└── gui/                      # React/Vite frontend
+    └── src/
+        ├── components/      # UI components
+        ├── hooks/           # Custom React hooks
+        ├── pages/           # Route components
+        └── api/             # Backend API client
 ```
 
 ## Quick Start
@@ -172,17 +170,6 @@ Description of what this skill does.
 ## Instructions
 
 Step-by-step instructions for the agent.
-```
-
-## Alternative UI
-
-A Next.js-based alternative UI is available in `deep-agents-ui-main/`:
-
-```bash
-cd deep-agents-ui-main
-yarn install
-yarn dev
-# Runs at http://localhost:3000
 ```
 
 ## Contributing
