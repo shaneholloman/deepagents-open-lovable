@@ -8,11 +8,7 @@ import remarkGfm from 'remark-gfm';
 // Safely extract string content (defensive programming)
 function safeContent(content: unknown): string {
   if (typeof content === 'string') return content;
-  // Fallback: use getMessageText for any non-string content
-  console.log('[DEBUG] safeContent received non-string:', content);
-  const result = getMessageText(content);
-  console.log('[DEBUG] safeContent returning:', result, typeof result);
-  return result;
+  return getMessageText(content);
 }
 
 interface MessageBubbleProps {
