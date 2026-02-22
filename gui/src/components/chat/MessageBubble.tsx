@@ -2,8 +2,37 @@ import type { Message } from '../../types';
 import { getMessageText } from '../../types';
 import { ToolActivityGroup, matchToolCallsWithResults } from './ToolActivityGroup';
 import { Icon } from '../ui/Icon';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+
+const markdownComponents: Components = {
+  code: ({ className, children, ...props }) => {
+    const isInline = !className;
+    return isInline ? (
+      <code className="bg-cyan-500/15 px-1.5 py-0.5 rounded-lg text-cyan-300 text-xs font-mono border border-cyan-400/20" {...props}>
+        {children}
+      </code>
+    ) : (
+      <pre className="bg-black/40 p-4 rounded-xl overflow-x-auto my-3 border border-white/5">
+        <code className={`${className} font-mono text-gray-200`} {...props}>
+          {children}
+        </code>
+      </pre>
+    );
+  },
+  a: ({ href, children }) => (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors">
+      {children}
+    </a>
+  ),
+  ul: ({ children }) => <ul className="list-disc list-inside my-2 space-y-1">{children}</ul>,
+  ol: ({ children }) => <ol className="list-decimal list-inside my-2 space-y-1">{children}</ol>,
+  li: ({ children }) => <li className="my-0.5 text-gray-200">{children}</li>,
+  p: ({ children }) => <p className="my-2 text-gray-100">{children}</p>,
+  h1: ({ children }) => <h1 className="text-xl font-display font-bold my-4 text-white">{children}</h1>,
+  h2: ({ children }) => <h2 className="text-lg font-display font-bold my-3 text-white">{children}</h2>,
+  h3: ({ children }) => <h3 className="text-base font-display font-semibold my-2 text-white">{children}</h3>,
+};
 
 // Safely extract string content (defensive programming)
 function safeContent(content: unknown): string {
@@ -88,34 +117,7 @@ function AIBubble({ content, timestamp }: { content: unknown; timestamp?: string
         ">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            components={{
-              code: ({ className, children, ...props }) => {
-                const isInline = !className;
-                return isInline ? (
-                  <code className="bg-cyan-500/15 px-1.5 py-0.5 rounded-lg text-cyan-300 text-xs font-mono border border-cyan-400/20" {...props}>
-                    {children}
-                  </code>
-                ) : (
-                  <pre className="bg-black/40 p-4 rounded-xl overflow-x-auto my-3 border border-white/5">
-                    <code className={`${className} font-mono text-gray-200`} {...props}>
-                      {children}
-                    </code>
-                  </pre>
-                );
-              },
-              a: ({ href, children }) => (
-                <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors">
-                  {children}
-                </a>
-              ),
-              ul: ({ children }) => <ul className="list-disc list-inside my-2 space-y-1">{children}</ul>,
-              ol: ({ children }) => <ol className="list-decimal list-inside my-2 space-y-1">{children}</ol>,
-              li: ({ children }) => <li className="my-0.5 text-gray-200">{children}</li>,
-              p: ({ children }) => <p className="my-2 text-gray-100">{children}</p>,
-              h1: ({ children }) => <h1 className="text-xl font-display font-bold my-4 text-white">{children}</h1>,
-              h2: ({ children }) => <h2 className="text-lg font-display font-bold my-3 text-white">{children}</h2>,
-              h3: ({ children }) => <h3 className="text-base font-display font-semibold my-2 text-white">{children}</h3>,
-            }}
+            components={markdownComponents}
           >
             {text}
           </ReactMarkdown>
